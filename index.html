@@ -18,6 +18,14 @@
         </div>
     </div>
 
+    <style>
+        /* 추가된 CSS */
+        ul {
+            list-style-type: none; /* 불렛 스타일 제거 */
+            padding-left: 0; /* 불렛 간격 제거 */
+        }
+    </style>
+
     <script>
         function addTodo() {
             const input = document.getElementById('todo-input');
@@ -25,8 +33,22 @@
             const task = input.value;
             if (task) {
                 const listItem = document.createElement('li');
-                listItem.textContent = task;
-                listItem.classList.add('list-disc', 'ml-4');
+                listItem.classList.add('flex', 'items-center', 'mb-2');
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.classList.add('mr-2');
+                checkbox.onclick = function() {
+                    // 체크박스를 클릭하면 텍스트에 line-through 스타일을 적용하거나 제거합니다.
+                    taskText.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+                };
+                listItem.appendChild(checkbox);
+
+                const taskText = document.createElement('span');
+                taskText.textContent = task;
+                taskText.classList.add('ml-4');
+                listItem.appendChild(taskText);
+
                 list.appendChild(listItem);
                 input.value = ''; // Clear the input box
             }
